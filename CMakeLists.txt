@@ -14,6 +14,8 @@ ELSEIF(APPLE)
 
 ENDIF(WIN32)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lrt -std=gnu99 -Wno-declaration-after-statement -Ofast -lm")
+
 find_package(SDL2 REQUIRED CONFIG REQUIRED COMPONENTS SDL2)
 find_package(SDL2 REQUIRED CONFIG COMPONENTS SDL2main)
 
@@ -21,9 +23,9 @@ find_package(SDL2 REQUIRED CONFIG COMPONENTS SDL2main)
 add_executable (secret_game "main.c")
 target_include_directories(secret_game PUBLIC include ${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS}) 
 IF(WIN32)
-    target_link_libraries(secret_game PUBLIC PRIVATE SDL2_image::SDL2_image ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+    target_link_libraries(secret_game PUBLIC PRIVATE SDL2_image::SDL2_image ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} SDL2_image m )
 ELSEIF(LINUX)
-    target_link_libraries(secret_game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+    target_link_libraries(secret_game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} SDL2_image m)
 ELSEIF(APPLE)
 
 ENDIF(WIN32)
